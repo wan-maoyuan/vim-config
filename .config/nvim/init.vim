@@ -4,11 +4,8 @@ set mouse=
 set number
 set relativenumber
 set showmatch
-set shiftwidth=4
-set tabstop=4
 set encoding=utf-8
 set hlsearch
-exec "nohlsearch"
 set incsearch
 set autoindent
 set clipboard=unnamed
@@ -16,27 +13,27 @@ set clipboard=unnamed
 set ruler
 set history=100
 set cursorline
+
 " tab转换为空格
 set expandtab
-
-" 键位映射
-map <C-s> :w<CR>
+" tab转换成4个空格，默认为8个
+set tabstop=4
+" 每一级缩进都是4个空格
+set shiftwidth=4
+" 自动缩进
+set autoindent
 
 " 代码补全
 set wildmenu
 set completeopt-=preview
 
-
 " coc.nvim插件：快捷键配置
-inoremap <expr> <Tab> pumvisible() ? "\<cr>" : "\<Tab>"
-inoremap <expr> <Tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-
+inoremap <silent><expr> <Tab> pumvisible() ? "\<cr>" : "\<Tab>"
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
 
 
 " 插件管理
-call plug#begin('~/.vim/plugged')
-
+call plug#begin('~/.config/nvim/plugged')
 " 快速调出终端
 Plug 'skywind3000/vim-terminal-help'
 " 符号自动补全
@@ -55,14 +52,16 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
-
 " nerd-tree插件：快捷键配置
 nnoremap <leader>v :NERDTreeFind<cr>
 nnoremap <leader>e :NERDTreeToggle<cr>
 
 " 使用 snazzy 配色
-" color snazzy
-" let g:SnazzyTransparent = 1
+color snazzy
+let g:SnazzyTransparent = 1
+" 设置自动补全框的配色
+hi Pmenu ctermfg=black ctermbg=gray  guibg=#444444
+hi PmenuSel ctermfg=7 ctermbg=4 guibg=#555555 guifg=#ffffff
 
 " vim-go插件：快捷键设置
 let g:go_fmt_command = 'goimports'
@@ -73,15 +72,12 @@ let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_generate_tags = 1
-
 nmap <C-g> :GoDeclsDir<cr>
 imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
-
 augroup go
   autocmd!
   autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 augroup END
-
 
 
 
